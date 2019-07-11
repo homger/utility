@@ -6,8 +6,8 @@
 
 */
 function objectDefaultValue(objectToCheck, defaultObject){
-  if(typeof defaultObject !== "object"){
-    throw new Error("(typeof defaultObject !== 'object') == true");
+  if(typeof objectToCheck !== "object" || typeof defaultObject !== "object"){
+    throw new Error("Invalid arguments");
   }
   let keyArray = Object.keys(defaultObject);
   keyArray.forEach(function(key){
