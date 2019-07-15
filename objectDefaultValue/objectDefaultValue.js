@@ -10,7 +10,7 @@ function objectDefaultValue(objectToCheck, defaultObject){
     throw new Error("Invalid defaultObject argument");
   }
   if(typeof objectToCheck !== "object"){
-    console.warn("argument objectToCheck is not an object. defaultObject wil be copied²");
+    console.warn("argument objectToCheck is not an object. defaultObject wil be copied");
     objectToCheck = {};
   }
   
@@ -20,4 +20,5 @@ function objectDefaultValue(objectToCheck, defaultObject){
       objectToCheck[key] = defaultObject[key];
     }
   });
+  return objectToCheck;
 }
