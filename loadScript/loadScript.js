@@ -2,7 +2,13 @@
 
 
 var SCRIPT_LIST = [];
+const DEFAULT_PARAMERTERS_VALUE = {src: "",  loadFunction: undefined, reference_sibling: document.querySelector("script"), append: false, msg: "_"};
+
 function loadScript(parameters = {src: "",  loadFunction: undefined, reference_sibling: document.querySelector("script"), append: false, msg: "_"}){
+  if( (typeof parameters === "string") ){
+    parameters = {src : parameters};
+  }
+  parameters = objectDefaultValue(parameters, DEFAULT_PARAMERTERS_VALUE);
 
   if(parameters.msg === "/****/ script has been loaded /****/"){
     SCRIPT_LIST.shift();
@@ -11,7 +17,7 @@ function loadScript(parameters = {src: "",  loadFunction: undefined, reference_s
     }
     return;
   }
-  checkParamaters(parameters);
+  
   console.log(parameters.msg);
 
   let script = document.createElement("script");
@@ -57,17 +63,23 @@ function launchLoad(parameter_object){
     parameter_object.reference_sibling);
 }
 
-function checkParamaters(parameters){
-  if(isUndefined(parameters.src))
-  parameters.src = "";
-  if(isUndefined(parameters.reference_sibling))
-  parameters.reference_sibling = document.querySelector("script");
-  if(isUndefined(parameters.append))
-  parameters.append = false;
-}
-
-function isUndefined(_var){
-if(_var === undefined)
-  return true;
-return false;
+/*
+use Object.freeze on defaultObject
+*/
+function objectDefaultValue(objectToCheck, defaultObject){
+  if(typeof defaultObject !== "object"){
+    throw new Error("Invalid defaultObject argument");
+  }
+  if(typeof objectToCheck !== "object"){
+    console.warn("argument objectToCheck is not an object. defaultObject wil be copied");
+    objectToCheck = {};
+  }
+  
+  let keyArray = Object.keys(defaultObject);
+  keyArray.forEach(function(key){
+    if(typeof objectToCheck[key] !== typeof defaultObject[key]){
+      objectToCheck[key] = defaultObject[key];
+    }
+  });
+  return objectToCheck;
 }
