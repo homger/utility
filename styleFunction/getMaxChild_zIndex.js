@@ -11,5 +11,9 @@ function getMaxChild_zIndex(element){
       zIndex = cachZindex > zIndex ? cachZindex : zIndex ;
     }
   });
+  
+  if(typeof zIndex === "string"){
+    zIndex = parseInt(zIndex, 10);
+  }
   return zIndex;
 }
