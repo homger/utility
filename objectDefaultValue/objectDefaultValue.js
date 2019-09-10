@@ -2,7 +2,7 @@
 
 /*
 
-
+  Function is only for simple objects...
 use Object.freeze on defaultObject
 */
 function objectDefaultValue(objectToCheck, defaultObject){
